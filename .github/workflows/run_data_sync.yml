@@ -1,5 +1,10 @@
 name: Run Data Sync
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 on:
   workflow_dispatch:
   schedule:
@@ -8,42 +13,27 @@ on:
     branches:
       - master
     paths:
-      - run_page/nike_sync.py
-      - run_page/nike_to_strava_sync.py
-      - run_page/strava_sync.py
-      - run_page/gen_svg.py
-      - run_page/garmin_sync.py
-      - run_page/coros_sync.py
-      - run_page/keep_sync.py
-      - run_page/gpx_sync.py
-      - run_page/tcx_sync.py
-      - run_page/tcx_to_garmin_sync.py
-      - run_page/garmin_to_strava_sync.py
-      - run_page/keep_to_strava_sync.py
-      - run_page/oppo_sync.py
       - run_page/intervals_icu_sync.py
       - requirements.txt
 
 env:
-  # please change to your own config.
-  RUN_TYPE: pass # support strava_web/strava/nike/garmin/coros/garmin_cn/garmin_sync_cn_global/keep/only_gpx/only_fit/nike_to_strava/strava_to_garmin/tcx_to_garmin/strava_to_garmin_cn/garmin_to_strava/garmin_to_strava_cn/oppo/intervals_icu/db_updater, Please change the 'pass' it to your own
-  ATHLETE: yihong0618
-  TITLE: Yihong0618 Running
-  MIN_GRID_DISTANCE: 10 # change min distance here
-  TITLE_GRID: Over 10km Runs # also here
+  RUN_TYPE: intervals_icu
+  ATHLETE: JoJoLife
+  TITLE: JoJoLife Running
+  MIN_GRID_DISTANCE: 10
+  TITLE_GRID: Over 10km Runs
 
-  # IGNORE_BEFORE_SAVING: True # if you want to ignore some data before saving, set this to True
-  IGNORE_START_END_RANGE: 10 # Unit meter
-  # Dont making this huge, just picking points you needing. https://developers.google.com/maps/documentation/utilities/polylineutility using this tool to making your polyline
-  IGNORE_POLYLINE: 'ktjrFoemeU~IorGq}DeB'
-  IGNORE_RANGE: 10 # Unit meter
-  USE_CLOUDFLARE_WARP: false # If you want to use Cloudflare WARP to bypass network restrictions, set it to `true`. Currently only Garmin needs this.
-  SAVE_DATA_IN_GITHUB_CACHE: false # if you deploy in the vercel, check the README
+  IGNORE_BEFORE_SAVING: True
+  IGNORE_START_END_RANGE: 500
+  IGNORE_POLYLINE: ''
+  IGNORE_RANGE: 10
+  USE_CLOUDFLARE_WARP: false
+  SAVE_DATA_IN_GITHUB_CACHE: false
   DATA_CACHE_PREFIX: 'track_data'
-  BUILD_GH_PAGES: true # If you do not need GitHub Page please set it to `false`
-  SAVE_TO_PARQENT: false # If you want to save the data to the repo, set it to `true`
-  GENERATE_MONTH_OF_LIFE: true # If you want to generate the month of life, set it to `true`
-  BIRTHDAY_MONTH: 1989-03 # If you want to generate the month of life, set it to your birthday month, format is YYYY-MM
+  BUILD_GH_PAGES: true
+  SAVE_TO_PARQENT: false
+  GENERATE_MONTH_OF_LIFE: true
+  BIRTHDAY_MONTH: 1986-02
 
 jobs:
   sync:
